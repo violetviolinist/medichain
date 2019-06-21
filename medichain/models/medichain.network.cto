@@ -1,0 +1,69 @@
+namespace medichain.network
+
+participant Customer identified by customerId {
+  o String customerId
+  o String firstName
+  o String lastName
+  o String phoneNumber
+  o String bankAccount
+  o String passportId
+  o String country
+  o String wallet
+}
+
+participant Hospital identified by hospitalId {
+  o String hospitalId
+  o String hospitalName
+  o String address
+  o String rating
+  o String[] packageIds
+  o String country
+  o String wallet
+}
+
+participant MedicalProvider identified by providerId {
+  o String providerId
+  o String name
+  o String address
+  o String rating
+  o String[] packageIds
+  o String country
+  o String wallet
+}
+
+asset Package identified by packageId {
+  o String packageId
+  o String[] funcdamentalProcedures
+  o String[] fundamentalProcedureCosts
+  o String[] fundamentalProcudureTimes
+  o String[] contingencies
+  o String[] contingenyCosts
+  o String[] contingencyTimes
+  o String totalFundamentalCost
+  o String totalFundamentalTime
+  o String totalTime
+  o String totalCost
+  o String providerId
+  o String providerType
+  o String providerName
+}
+
+asset BoughtPackage identified by boughtPackageId {
+  o String boughtPackageId                            // packageId + customerId
+  o String packageId
+  o String providerId
+  o String providerType
+  o String providerName
+  o String customerId
+  o String customerName
+  o String holdAmount                                 // Amount temporarily held. Disbursed in steps.
+  o String[] medicalRecords
+  o String[] stages
+  o String[] stagesCost
+  o String currentStage
+}
+
+transaction CompleteStage {
+  o String boughtPackageId
+}
+
