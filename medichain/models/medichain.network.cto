@@ -16,6 +16,8 @@ participant Hospital identified by hospitalId {
   o String hospitalName
   o String address
   o String rating
+  o String contingenciesProposed
+  o String contingenciesValidated
   o String[] packageIds
   o String country
   o String wallet
@@ -26,19 +28,50 @@ participant MedicalProvider identified by providerId {
   o String name
   o String address
   o String rating
+  o String contingenciesProposed
+  o String contingenciesValidated
   o String[] packageIds
   o String country
   o String wallet
 }
 
+participant IndependentValidator identified by IVId {
+  o String IVId
+  o String name
+  o String address
+  o String[] accreditations
+  o String wallet
+}
+
+participant GovernmentValidator identified by GVId {
+  o String GVId
+  o String name
+  o String address
+  o String wallet
+}
+
+participant PublicServiceValidator identified by PSVId {
+  o String PSVId
+  o String name
+  o String address
+  o String[] accreditations
+  o String wallet
+}
+
+// Definition of packages available by providers
 asset Package identified by packageId {
   o String packageId
-  o String[] funcdamentalProcedures
+  o String[] funcdamentalProcedureNames
   o String[] fundamentalProcedureCosts
   o String[] fundamentalProcudureTimes
-  o String[] contingencies
+  o String[] contingencyNames
+  o String[] contingencyDescriptions
   o String[] contingenyCosts
   o String[] contingencyTimes
+  o String[] unvalidatedContingencyNames
+  o String[] unvalidatedContingencyDescriptions
+  o String[] unvalidatedContingencyCosts
+  o String[] unvalidatedContingencyTimes
   o String totalFundamentalCost
   o String totalFundamentalTime
   o String totalTime
@@ -48,7 +81,7 @@ asset Package identified by packageId {
   o String providerName
 }
 
-asset BoughtPackage identified by boughtPackageId {
+asset BoughtPackage identified by boughtPackageId {   // *Actual asset of a patient after he buys it
   o String boughtPackageId                            // packageId + customerId
   o String packageId
   o String providerId
@@ -56,14 +89,52 @@ asset BoughtPackage identified by boughtPackageId {
   o String providerName
   o String customerId
   o String customerName
-  o String holdAmount                                 // Amount temporarily held. Disbursed in steps.
+  o String holdAmount                              // Amount temporarily held. Disbursed in steps. (Escrow)
+  o String contingencyFund
+  o String unverifiedStageName default = "-1"
+  o String unverifiedContingencyName default = "-1"
   o String[] medicalRecords
-  o String[] stages
-  o String[] stagesCost
+  o String startDate
   o String currentStage
 }
 
+// Complete the current stage of a customer's package (called by the MedicalProvider)
 transaction CompleteStage {
   o String boughtPackageId
 }
 
+// Verify the currently completed but unverified stage (called by Customer)
+transaction VerifyStage {
+  o String boughtPackageId
+}
+
+transaction selectPackage {
+  o String packageId
+  o String startDate
+}
+
+// Validate an unvalidated contingency (called by third party validator)
+transaction ValidateContingency {
+  o String boughtPackageId
+  o String contingencyName
+}
+
+// Reject a contingency (called by third party validator)
+transaction RejectContingency {
+  o String boughtPackageId
+  o String contingencyName
+}
+
+// Raise a contingency procedure (called by provider) 
+transaction RaiseContingency {
+  o String boughtPackageId
+  o String contingencyName
+  o String contingencyDescription
+  o String contingencyCost
+  o String cointingencyTime
+}
+
+// Verify that contingency procedure has been performed
+transaction VerifyContingency {
+  o String boughtPackageId
+}

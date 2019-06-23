@@ -1,29 +1,76 @@
-/**
- * Sample access control list.
- */
-rule EverybodyCanReadEverything {
-    description: "Allow all participants read access to all resources"
-    participant: "org.hyperledger.composer.system.Participant"
-    operation: READ
-    resource: "medichain.network.*"
-    action: ALLOW
-}
+// rule EverybodyCanReadEverything {
+//     description: "Allow all participants read access to all resources"
+//     participant: "medichain.network.SampleParticipant"
+//     operation: READ
+//     resource: "medichain.network.*"
+//     action: ALLOW
+// }
 
-rule EverybodyCanSubmitTransactions {
-    description: "Allow all participants to submit transactions"
-    participant: "org.hyperledger.composer.system.Participant"
-    operation: CREATE
-    resource: "org.hyperledger.composer.system.Transaction"
-    action: ALLOW
-}
+// rule EverybodyCanSubmitTransactions {
+//     description: "Allow all participants to submit transactions"
+//     participant: "medichain.network.SampleParticipant"
+//     operation: CREATE
+//     resource: "medichain.network.SampleTransaction"
+//     action: ALLOW
+// }
 
-rule OwnerHasFullAccessToTheirAssets {
-    description: "Allow all participants full access to their assets"
-    participant(p): "org.hyperledger.composer.system.Participant"
+// rule OwnerHasFullAccessToTheirAssets {
+//     description: "Allow all participants full access to their assets"
+//     participant(p): "medichain.network.SampleParticipant"
+//     operation: ALL
+//     resource(r): "medichain.network.SampleAsset"
+//     condition: (r.owner.getIdentifier() === p.getIdentifier())
+//     action: ALLOW
+// }
+
+/* ====================NETWORK STUFF====================*/
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
     operation: ALL
-    resource(r): "org.hyperledger.composer.system.Asset"
-    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    resource: "**"
     action: ALLOW
+}
+
+rule EverybodyCanReadNetwork {
+    description: "Grant business network administrators full access to system resources"
+    participant: "ANY"
+    operation: READ
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule ReadNetwork{
+  description: "allow participants to connect to network"
+  participant: "ANY"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.Network"
+  action: ALLOW 
+}
+
+rule historianAccess{
+  description: "Only allow members to read historian records referencing transactions they submitted."
+  participant(p): "ANY"
+  operation: READ
+  resource(r): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (r.participantInvoking.getIdentifier() == p.getIdentifier())
+  action: ALLOW
+}
+
+rule historianCreateAccess{
+  description: "Only allow members to create historian records in order to submit transactions"
+  participant: "ANY"
+  operation: CREATE
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW
 }
 
 rule SystemACL {
@@ -34,17 +81,9 @@ rule SystemACL {
   action: ALLOW
 }
 
-rule NetworkAdminUser {
-    description: "Grant business network administrators full access to user resources"
-    participant: "org.hyperledger.composer.system.NetworkAdmin"
-    operation: ALL
-    resource: "**"
-    action: ALLOW
-}
-
-rule NetworkAdminSystem {
-    description: "Grant business network administrators full access to system resources"
-    participant: "org.hyperledger.composer.system.NetworkAdmin"
+rule GrantSysAccess {
+    description: "Grant access to all Participants to target system registries"
+    participant: "org.hyperledger.composer.system.Participant"
     operation: ALL
     resource: "org.hyperledger.composer.system.**"
     action: ALLOW

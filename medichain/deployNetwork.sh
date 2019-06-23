@@ -1,7 +1,6 @@
 ~/fabric-dev-servers/stopFabric.sh
 ~/fabric-dev-servers/teardownFabric.sh
 ~/fabric-dev-servers/startFabric.sh
-export FABRIC_VERSION=hlfv11
 composer card delete -c PeerAdmin@hlfv1
 ~/fabric-dev-servers/createPeerAdminCard.sh
 composer archive create -t dir -n .

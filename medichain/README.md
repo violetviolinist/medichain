@@ -1,3 +1,3 @@
 # medichain
 
-Blockchain for medical tourism
+Blockchain based ecosystem for medical tourism
