@@ -13,10 +13,10 @@ async function CompleteStage(tx) {
 
     const packageId = boughtPackage.packageId;
     const packageRegistry = await getAssetRegistry('medichain.network.Package');
-    const package = await packageRegistry.get(packageId);
+    const mediPackage = await packageRegistry.get(packageId);
 
     const currentStage = boughtPackage.currentStage;
-    const stages = package.fundamentalProcedureNames;
+    const stages = mediPackage.fundamentalProcedureNames;
 
     const currentStageIndex = stages.indexOf(currentStage);
     const newCurrentStage = stages[currentStageIndex + 1];
@@ -38,10 +38,10 @@ async function VerifyStage(tx) {
 
     const packageId = boughtPackage.packageId;
     const packageRegistry = await getAssetRegistry('medichain.network.Package');
-    const package = await packageRegistry.get(packageId);
+    const mediPackage = await packageRegistry.get(packageId);
 
-    const stages = package.fundamentalProcedureNames;
-    const stagesCost = package.fundamentalProcedureCosts;
+    const stages = mediPackage.fundamentalProcedureNames;
+    const stagesCost = mediPackage.fundamentalProcedureCosts;
     const unverifiedStage = boughtPackage.unverifiedStage;
     const unverifiedStageIndex = stages.indexOf(unverifiedStage);
 
@@ -77,7 +77,7 @@ async function RaiseContingency(tx) {
 
     const packageId = boughtPackage.packageId;
     const packageRegistry = await getAssetRegistry('medichain.network.Package');
-    const package = await packageRegistry.get(packageId);
+    const mediPackage = await packageRegistry.get(packageId);
 
     const providerIdentifier = "medichain.network." + boughtPackage.providerType;
     const providerId = boughtPackage.providerId;
@@ -89,21 +89,21 @@ async function RaiseContingency(tx) {
     const newContingencyDescription = tx.contingencyDescription;
     const newContingencyTime = tx.ContingencyTime;
 
-    // const unvalidatedContingencyNames = package.unvalidatedContingencyNames;
-    // const unvalidatedContingencyDescriptions = package.unvalidatedContingencyDescriptions;
-    // const unvalidatedContingencyCosts = package.unvalidatedContingencyCosts;
-    // const unvalidatedContingencyTimes = package.unvalidatedContingencyTimes;
+    // const unvalidatedContingencyNames = mediPackage.unvalidatedContingencyNames;
+    // const unvalidatedContingencyDescriptions = mediPackage.unvalidatedContingencyDescriptions;
+    // const unvalidatedContingencyCosts = mediPackage.unvalidatedContingencyCosts;
+    // const unvalidatedContingencyTimes = mediPackage.unvalidatedContingencyTimes;
 
-    package.unvalidatedContingencyNames.push(newContingencyName);
-    package.unvalidatedContingencyDescriptions.push(newContingencyDescription);
-    package.unvalidatedContingencyCosts.push(newContingencyCost);
-    package.unvalidatedContingencyTimes.push(newContingencyTime);
+    mediPackage.unvalidatedContingencyNames.push(newContingencyName);
+    mediPackage.unvalidatedContingencyDescriptions.push(newContingencyDescription);
+    mediPackage.unvalidatedContingencyCosts.push(newContingencyCost);
+    mediPackage.unvalidatedContingencyTimes.push(newContingencyTime);
 
     boughtPackage.unerifiedContingencyName = newContingencyName;
 
     ++provider.contingenciesProposed;
 
-    await packageRegistry.update(package);
+    await packageRegistry.update(mediPackage);
     await boughtPackage.update(boughtPackage);
     await providerRegistry.update(provider);
 }
@@ -121,24 +121,24 @@ async function ValidateContingency(tx) {
 
     const packageId = boughtPackage.packageId;
     const packageRegistry = await getAssetRegistry('medichain.network.Package');
-    const package = await packageRegistry.get(packageId);
+    const mediPackage = await packageRegistry.get(packageId);
 
-    const unvalidatedContingencyNames = package.unvalidatedContingencyNames;
+    const unvalidatedContingencyNames = mediPackage.unvalidatedContingencyNames;
     const unvalidatedContingencyIndex = unvalidatedContingencyNames.indexOf(unvalidatedContingencyName);
 
-    package.contingencyNames.push(package.unvalidatedContingencyNames[unvalidatedContingencyIndex]);
-    package.contingencyDescriptions.push(package.unvalidatedContingencyDescriptions[unvalidatedContingencyIndex]);
-    package.contingencyCosts.push(package.unvalidatedContingencyCosts[unvalidatedContingencyIndex]);
-    package.contingencyTimes.push(package.unvalidatedContingencyTimes[unvalidatedContingencyIndex]);
+    mediPackage.contingencyNames.push(mediPackage.unvalidatedContingencyNames[unvalidatedContingencyIndex]);
+    mediPackage.contingencyDescriptions.push(mediPackage.unvalidatedContingencyDescriptions[unvalidatedContingencyIndex]);
+    mediPackage.contingencyCosts.push(mediPackage.unvalidatedContingencyCosts[unvalidatedContingencyIndex]);
+    mediPackage.contingencyTimes.push(mediPackage.unvalidatedContingencyTimes[unvalidatedContingencyIndex]);
 
-    package.totalCost += package.contingencyCosts[unvalidatedContingencyIndex];
+    mediPackage.totalCost += mediPackage.contingencyCosts[unvalidatedContingencyIndex];
 
-    package.unvalidatedContingencyNames.splice(unvalidatedContingencyIndex, 1);
-    package.unvalidatedContingencyCosts.splice(unvalidatedContingencyIndex, 1);
-    package.unvalidatedContingencyDescriptions.splice(unvalidatedContingencyIndex, 1);
-    package.unvalidatedContingencyTimes.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyNames.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyCosts.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyDescriptions.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyTimes.splice(unvalidatedContingencyIndex, 1);
 
-    await packageRegistry.update(package);
+    await packageRegistry.update(mediPackage);
     await boughtPackageRegistry.update(boughtPackage);
 }
 
@@ -155,28 +155,28 @@ async function RejectContingeny(tx) {
 
     const packageId = boughtPackage.packageId;
     const packageRegistry = await getAssetRegistry('medichain.network.Package');
-    const package = await packageRegistry.get(packageId);
+    const mediPackage = await packageRegistry.get(packageId);
 
     const providerIdentifier = "medichain.network." + boughtPackage.providerType;
     const providerId = boughtPackage.providerId;
     const providerRegistry = await getAssetRegistry(providerIdentifier);
     const provider = await providerRegistry.get(providerId);
 
-    const unvalidatedContingencyNames = package.unvalidatedContingencyNames;
+    const unvalidatedContingencyNames = mediPackage.unvalidatedContingencyNames;
     const unvalidatedContingencyIndex = unvalidatedContingencyNames.indexOf(unvalidatedContingencyName);
-    const unvalidatedContingencyCost = package.unvalidatedContingencyCosts[unvalidatedContingencyIndex];
+    const unvalidatedContingencyCost = mediPackage.unvalidatedContingencyCosts[unvalidatedContingencyIndex];
 
-    package.unvalidatedContingencyNames.splice(unvalidatedContingencyIndex, 1);
-    package.unvalidatedContingencyCosts.splice(unvalidatedContingencyIndex, 1);
-    package.unvalidatedContingencyDescriptions.splice(unvalidatedContingencyIndex, 1);
-    package.unvalidatedContingencyTimes.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyNames.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyCosts.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyDescriptions.splice(unvalidatedContingencyIndex, 1);
+    mediPackage.unvalidatedContingencyTimes.splice(unvalidatedContingencyIndex, 1);
 
     provider.wallet -= unvalidatedContingencyCost;
     provider.wallet -= CONTINGENCY_REJECTION_PENALTY;
     boughtPackage += CONTINGENCY_REJECTION_PENALTY;
     boughtPackage.holdAmount += unvalidatedContingencyCost;
 
-    await packageRegistry.update(package);
+    await packageRegistry.update(mediPackage);
     await boughtPackageRegistry.update(boughtPackage);
     await providerRegistry.update(provider);
 }
@@ -192,11 +192,11 @@ async function VerifyContingency(tx) {
 
     const packageId = boughtPackage.packageId;
     const packageRegistry = await getAssetRegistry('medichain.network.Package');
-    const package = await packageRegistry.get(packageId);
+    const mediPackage = await packageRegistry.get(packageId);
 
     const unverifiedContingencyName = boughtPackage.unverifiedContingencyName;
-    const unverifiedContingencyIndex = package.unvalidatedContingencyNames.indexOf(unverifiedContingencyName);
-    const unverifiedContingencyCost = package.unvalidatedContingencyCosts[unverifiedContingencyIndex];
+    const unverifiedContingencyIndex = mediPackage.unvalidatedContingencyNames.indexOf(unverifiedContingencyName);
+    const unverifiedContingencyCost = mediPackage.unvalidatedContingencyCosts[unverifiedContingencyIndex];
     boughtPackage.unverifiedContingencyName = "-1";
 
     const providerIdentifier = "medichain.network." + boughtPackage.providerType;

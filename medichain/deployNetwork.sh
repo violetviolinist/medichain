@@ -9,7 +9,3 @@ composer network start --card PeerAdmin@hlfv1 --networkAdmin admin --networkAdmi
 composer card delete -c admin@medichain
 composer card import --file networkadmin.card
 composer network ping --card admin@medichain
-
-
-
-
