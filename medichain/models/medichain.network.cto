@@ -61,6 +61,10 @@ participant PublicServiceValidator identified by PSVId {
 // Definition of packages available by providers
 asset Package identified by packageId {
   o String packageId
+  o String name
+  o String description
+  o String category
+  o String image
   o String[] funcdamentalProcedureNames
   o String[] fundamentalProcedureCosts
   o String[] fundamentalProcudureTimes
