@@ -83,6 +83,7 @@ asset Package identified by packageId {
   o String description
   o String category
   o String image
+  o String[] requiredDocs
   o String[] fundamentalProcedureNames
   o Integer[] fundamentalProcedureCosts
   o String[] fundamentalProcedureTimes
@@ -113,6 +114,12 @@ asset BoughtPackage identified by boughtPackageId {   // *Actual asset of a pati
   o String customerName
   o Integer holdAmount                             // Amount temporarily held. Disbursed in steps. (Escrow)
   o Integer contingencyFund
+  o Boolean[] patientStageStatus
+  o Boolean[] providerStageStatus
+  o Boolean[] patientContingencyStatus
+  o Boolean[] providerContingencyStatus
+  o Boolean[] patientUnvalidatedContingencyStatus
+  o Boolean[] providerUnvalidatedContingencyStatus
   o String unverifiedStageName default = "-1"
   o String unverifiedContingencyName default = "-1"
   o String[] medicalRecords
@@ -123,13 +130,16 @@ asset BoughtPackage identified by boughtPackageId {   // *Actual asset of a pati
 // Complete the current stage of a customer's package (called by the MedicalProvider)
 transaction CompleteStage {
   o String boughtPackageId
+  o String stageName
 }
 
 // Verify the currently completed but unverified stage (called by Customer)
 transaction VerifyStage {
   o String boughtPackageId
+  o String stageName
 }
 
+// Customer buys package
 transaction selectPackage {
   o String packageId
   o String startDate
@@ -156,9 +166,16 @@ transaction RaiseContingency {
   o String contingencyTime
 }
 
+// Complete one of the pre-defined contingencies (called by provider)
+transaction CompleteContingency {
+  o String boughtPackageId
+  o String contingencyName
+}
+
 // Verify that contingency procedure has been performed
 transaction VerifyContingency {
   o String boughtPackageId
+  o String contingencyName
 }
 
 participant SampleParticipant identified by participantId {

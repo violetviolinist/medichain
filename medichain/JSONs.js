@@ -1,0 +1,61 @@
+{
+    "packageId": "package1",
+    "name": "Heart Surgery Medical Term",
+    "description": "Long text describing procedure",
+    "category": "Cardiac",
+    "image": "BASE64",
+    "requiredDocs": ["MRI Scan", "CT Scan"],
+    "fundamentalProcedureNames": ["Heart Procedure 1", "Heart Procedure 2", "Heart Procedure 3"],
+    "fundamentalProcedureCosts": [5000, 75000, 5000],
+    "fundamentalProcedureTimes": ["1", "5", "10"],
+    "contingencyNames": ["Contingency 1", "Contingency 2", "Contingency 3"],
+    "contingencyDescriptions": ["Contingency Description 1", "Contingency Description 2", "Contingency Description 3"],
+    "contingencyCosts": [200, 600, 1000],
+    "contingencyTimes": ["2", "6", "10"],
+    "unvalidatedContingencyNames": [],
+    "unvalidatedContingencyDescriptions": [],
+    "unvalidatedContingencyCosts": [],
+    "unvalidatedContingencyTimes": [],
+    "totalFundamentalCost": 85000,
+    "totalFundamentalTime": "16",
+    "totalTime": "34",
+    "totalCost": 86800,
+    "providerId": "hospital1",
+    "providerType": "Hospital",
+    "providerName": "Some Hospital Name"
+}
+
+{
+    "boughtPackageId": "boughtPackage1",
+    "packageId": "package1",
+    "providerId": "hospital1",
+    "providerType": "Hospital",
+    "providerName": "Some Hospital Name",
+    "customerId": "customer1",
+    "customerName": "Jay Parekh",
+    "holdAmount": 50000,
+    "contingencyFund": 10000,
+    "patientStageStatus": [false, false, false],
+    "providerStageStatus": [false, false, false],
+    "patientContingencyStatus": [false, false, false],
+    "providerContingencyStatus": [false, false, false],
+    "patientUnvalidatedContingencyStatus": [],
+    "providerUnvalidatedContingencyStatus": [],
+    "unverifiedStageName": "-1",
+    "unverifiedContingencyName": "-1",
+    "medicalRecords": ["BASE64", "BASE64"],
+    "startDate": "TIMESTAMP",
+    "currentStage": "Heart Procedure 1"
+}
+
+{
+    "hospitalId": "hospital1",
+    "hospitalName": "Some Hospital Name",
+    "address": "Banglore, India",
+    "rating": "5/6",
+    "contingenciesProposed": "5",
+    "contingenciesValidated": "5",
+    "packageIds": ["package1"],
+    "country": "India",
+    "wallet": 1000000
+}

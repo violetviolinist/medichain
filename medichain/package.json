@@ -3,7 +3,7 @@
     "composer": "^0.20.8"
   },
   "name": "medichain",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Blockchain based ecosystem for medical tourism",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/medichain.bna",
