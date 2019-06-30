@@ -2,8 +2,9 @@
         <br/><br/><br/>
   <div class="col-md-9">
       <div>
-            <br/><br/><br/> <br/><br/><br/>
-          <h3 class="text-center">{{chosenPackage.name}}</h3>
+            <br/><br/><br/>
+          <h3 class="text-center">{{chosenPackage[0].name}}</h3>
+          <br/>
         </div>
         <table>
             <thead>
@@ -26,15 +27,15 @@
                         <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
                         <td>
         
-                            <table>
+                            <table style="width:50%;">
                                 <thead>
-                                    <th>Name</th>
-                                    <th>Cost</th>
-                                    <th>Time</th>
+                                    <th style="text-align:center;">Name</th>
+                                    <th style="text-align:center;">Cost</th>
+                                    <th style="text-align:center;">Time</th>
                                 </thead>
                                 <tbody style="font-size:15px;width:100%;" >
                                         <tr *ngFor="let index of chosenPackage[0].fundamentalProcedureNames; index as i">
-                                            <td>{{chosenPackage[0].fundamentalProcedureNames[i]}}</td>
+                                            <td >{{chosenPackage[0].fundamentalProcedureNames[i]}}</td>
                                             <td style="text-align:center;">{{chosenPackage[0].fundamentalProcedureCosts[i]}}</td>
                                             <td style="text-align:center;">{{chosenPackage[0].fundamentalProcedureTimes[i]}}</td>
                                         </tr>
@@ -49,17 +50,17 @@
         
                             <table>
                                 <thead>
-                                    <th>Name</th>
-                                    <th>Description</th>
-                                    <th>Cost</th>
-                                    <th>Time</th>
+                                    <th style="text-align:center;">Name</th>
+                                    <th style="text-align:center;">Description</th>
+                                    <th style="text-align:center;">Cost</th>
+                                    <th style="text-align:center;">Time</th>
                                 </thead>
                                 <tbody style="font-size:15px" >
                                         <tr *ngFor="let index of chosenPackage[0].contingencyNames; index as i">
                                             <td>{{chosenPackage[0].contingencyNames[i]}}</td>
                                             <td>{{chosenPackage[0].contingencyDescriptions[i]}}</td>
-                                            <td>{{chosenPackage[0].contingencyCosts[i]}}</td>
-                                            <td>{{chosenPackage[0].contingencyTimes[i]}}</td>
+                                            <td style="text-align:center;">{{chosenPackage[0].contingencyCosts[i]}}</td>
+                                            <td style="text-align:center;">{{chosenPackage[0].contingencyTimes[i]}}</td>
                                         </tr>
                                 </tbody>
                             </table>
@@ -81,7 +82,7 @@
   <div class="col-md-3">
         <br/><br/><br/>
       <img mat-card-image [src]="imagestring" style="max-width:300px;height:300px;" alt="Photo of a Shiba Inu">
-      <input (ngModelChange)="DateSelection($event)" [(ngModel)]="date" name="date1" id="date1" #date1="ngModel" [matDatepicker]="myDatepicker" placeholder="Choose medical date">
+      <input style="background-color:transparent;border:0px;border-bottom:2px #3f56b5 solid;width:80%;padding-top:20px;" (ngModelChange)="DateSelection($event)" [(ngModel)]="date" name="date1" id="date1" #date1="ngModel" [matDatepicker]="myDatepicker" placeholder="Choose medical date">
       <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
       <mat-datepicker #myDatepicker></mat-datepicker>
       <br/><br/>
