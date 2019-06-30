@@ -1,0 +1,98 @@
+<div class="container row viewingForm" style="max-width:100vw !important;width:100vw;height:100vh;">
+        <br/><br/><br/>
+  <div class="col-md-9">
+      <div>
+            <br/><br/><br/> <br/><br/><br/>
+          <h3 class="text-center">{{chosenPackage.name}}</h3>
+        </div>
+        <table>
+            <thead>
+                <th style="width:100px"></th>
+                <th></th>
+            </thead>
+            <tbody style="font-size:15px" >
+                    <tr>
+                        <td class="heading">CATEGORY</td>
+                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                        <td>{{chosenPackage[0].category}}</td>
+                    </tr><br/>
+                    <tr>
+                            <td class="heading">DESCRIPTION</td>
+                            <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                            <td>{{chosenPackage[0].description}}</td>
+                        </tr><br/>
+                    <tr>
+                        <td class="heading" >FUNDAMENTAL PROCEDURES</td>
+                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                        <td>
+        
+                            <table>
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Cost</th>
+                                    <th>Time</th>
+                                </thead>
+                                <tbody style="font-size:15px;width:100%;" >
+                                        <tr *ngFor="let index of chosenPackage[0].fundamentalProcedureNames; index as i">
+                                            <td>{{chosenPackage[0].fundamentalProcedureNames[i]}}</td>
+                                            <td style="text-align:center;">{{chosenPackage[0].fundamentalProcedureCosts[i]}}</td>
+                                            <td style="text-align:center;">{{chosenPackage[0].fundamentalProcedureTimes[i]}}</td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr><br/>
+                    <tr>
+                        <td class="heading" >CONTINGENCIES</td>
+                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                        <td> 
+        
+                            <table>
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Cost</th>
+                                    <th>Time</th>
+                                </thead>
+                                <tbody style="font-size:15px" >
+                                        <tr *ngFor="let index of chosenPackage[0].contingencyNames; index as i">
+                                            <td>{{chosenPackage[0].contingencyNames[i]}}</td>
+                                            <td>{{chosenPackage[0].contingencyDescriptions[i]}}</td>
+                                            <td>{{chosenPackage[0].contingencyCosts[i]}}</td>
+                                            <td>{{chosenPackage[0].contingencyTimes[i]}}</td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr><br/>
+                    <tr>
+                        <td class="heading">TOTAL COST</td>
+                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                        <td>{{chosenPackage[0].totalCost}}</td>
+                    </tr><br/>
+                    <tr>
+                        <td class="heading">TOTAL TIME</td>
+                        <td style="font-size:1.4em;font-weight:700;">:&nbsp;</td>
+                        <td>{{chosenPackage[0].totalTime}}</td>
+                    </tr><br/>
+            </tbody>
+        </table>
+  </div>
+  <div class="col-md-3">
+        <br/><br/><br/>
+      <img mat-card-image [src]="imagestring" style="max-width:300px;height:300px;" alt="Photo of a Shiba Inu">
+      <input (ngModelChange)="DateSelection($event)" [(ngModel)]="date" name="date1" id="date1" #date1="ngModel" [matDatepicker]="myDatepicker" placeholder="Choose medical date">
+      <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+      <br/><br/>
+      <p>CT Scan Record</p><br/>
+      <input  placeholder="CT Scan Record" type="file" name="file" accept="image/jpeg" (change)="getFiles($event,'CT')" >
+      <br/><br/>
+      <p>MRI Scan Report</p><br/>
+      <input  placeholder="MR Scan Report" type="file" name="file" accept="image/jpeg" (change)="getFiles($event,'MRI')" >
+      <br/><br/>
+      <button mat-raised-button color="primary" (click)="buyPackage()"> Buy Now</button>
+  </div>
+</div>
+
+                   

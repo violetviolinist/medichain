@@ -1,0 +1,19 @@
+<mat-grid-list cols="3" style="background-image:url('../assets/images/bg.jpg');padding-top:100px !important;height:100vh !important;">
+  <mat-grid-tile class="example-card" *ngFor="let item of packages;item as i">
+    <mat-card style="max-width:300px;">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{item.name}}</mat-card-title>
+        <mat-card-subtitle>{{item.category}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image style="max-height:230px;" [src]="item.image" alt="Operation">
+      <mat-card-content>
+        <p>{{item.description}}</p>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="packageDisplay(item.packageId)">Learn More</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

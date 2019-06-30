@@ -1,0 +1,53 @@
+<div class="wrapper">
+    <div class="page-header section-dark" style="background-image: url('assets/images/expert.jpg');min-height:80vh;">
+        <div class="filter"></div>
+        <div class="content-center">
+            <div class="container">
+                <div class="title-brand"><br/><br/><br/><br/>
+                    <h2 class="presentation-title" style="font-size:4em;">Expert</h2><br/><br/><br/><br/>
+                </div>
+                <!-- <h5 class="text-center" style="color:white;">Hospital Name</h5>
+                <h5 class="text-center" style="color:white;">Mumbai</h5> -->
+            </div>
+        </div>       
+    </div>
+  </div>
+<br/>
+<br/>
+<div class="example-container mat-elevation-z8" style="width:80%;margin-left:10%;">
+    <mat-table #table [dataSource]="unvalidatedContingencies">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="checked">
+        <mat-header-cell *matHeaderCellDef>Check</mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+          <mat-checkbox [(ngModel)]="element.checked" [disabled]="element.checked==true" [checked]="element.checked==true"  (ngModelChange)="sendValidatedContingencyRow($event,element)"></mat-checkbox>
+        </mat-cell>
+      </ng-container>
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position + 1}} </mat-cell>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+      </ng-container>
+  
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted;" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
+    </mat-table>
+  </div>
