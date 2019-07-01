@@ -174,6 +174,11 @@ async function RaiseContingency(tx) {
     mediPackage.unvalidatedContingencyCosts.push(newContingencyCost);
     mediPackage.unvalidatedContingencyTimes.push(newContingencyTime);
 
+    boughtPackage.unvalidatedContingencyNames = mediPackage.unvalidatedContingencyNames;
+    boughtPackage.unvalidatedContingencyCosts = mediPackage.unvalidatedContingencyCosts;
+    boughtPackage.unvalidatedContingencyDescriptions = mediPackage.unvalidatedContingencyDescriptions;
+    boughtPackage.unvalidatedContingencyTimes = mediPackage.unvalidatedContingencyTimes;
+
     boughtPackage.patientUnvalidatedContingencyStatus.push(false);
     boughtPackage.providerUnvalidatedContingencyStatus.push(true);
 
@@ -219,6 +224,16 @@ async function ValidateContingency(tx) {
     mediPackage.unvalidatedContingencyDescriptions.splice(unvalidatedContingencyIndex, 1);
     mediPackage.unvalidatedContingencyTimes.splice(unvalidatedContingencyIndex, 1);
 
+    boughtPackage.contingencyNames = mediPackage.contingencyNames;
+    boughtPackage.contingencyDescriptions = mediPackage.contingencyDescriptions;
+    boughtPackage.contingencyCosts = mediPackage.contingencyCosts;
+    boughtPackage.contingencyTimes  =mediPackage.contingencyTimes;
+
+    boughtPackage.unvalidatedContingencyNames = mediPackage.unvalidatedContingencyNames;
+    boughtPackage.unvalidatedContingencyCosts = mediPackage.unvalidatedContingencyCosts;
+    boughtPackage.unvalidatedContingencyDescriptions = mediPackage.unvalidatedContingencyDescriptions;
+    boughtPackage.unvalidatedContingencyTimes = mediPackage.unvalidatedContingencyTimes;
+
     boughtPackage.patientContingencyStatus.push(boughtPackage.patientUnvalidatedContingencyStatus[unvalidatedContingencyIndex]);
     boughtPackage.providerContingencyStatus.push(boughtPackage.providerContingencyStatus[unvalidatedContingencyIndex]);
 
@@ -262,6 +277,11 @@ async function RejectContingeny(tx) {
     mediPackage.unvalidatedContingencyCosts.splice(unvalidatedContingencyIndex, 1);
     mediPackage.unvalidatedContingencyDescriptions.splice(unvalidatedContingencyIndex, 1);
     mediPackage.unvalidatedContingencyTimes.splice(unvalidatedContingencyIndex, 1);
+
+    boughtPackage.unvalidatedContingencyNames = mediPackage.unvalidatedContingencyNames;
+    boughtPackage.unvalidatedContingencyCosts = mediPackage.unvalidatedContingencyCosts;
+    boughtPackage.unvalidatedContingencyDescriptions = mediPackage.unvalidatedContingencyDescriptions;
+    boughtPackage.unvalidatedContingencyTimes = mediPackage.unvalidatedContingencyTimes;
 
     boughtPackage.patientUnvalidatedContingencyStatus.splice(unvalidatedContingencyIndex, 1);
     boughtPackage.providerUnvalidatedContingencyStatus.splice(unvalidatedContingencyIndex, 1);

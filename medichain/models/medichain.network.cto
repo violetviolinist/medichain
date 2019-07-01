@@ -125,6 +125,17 @@ asset BoughtPackage identified by boughtPackageId {   // *Actual asset of a pati
   o String[] medicalRecords
   o String startDate
   o String currentStage
+  o String[] fundamentalProcedureNames
+  o Integer[] fundamentalProcedureCosts
+  o String[] fundamentalProcedureTimes
+  o String[] contingencyNames
+  o String[] contingencyDescriptions
+  o Integer[] contingencyCosts
+  o String[] contingencyTimes
+  o String[] unvalidatedContingencyNames
+  o String[] unvalidatedContingencyDescriptions
+  o Integer[] unvalidatedContingencyCosts
+  o String[] unvalidatedContingencyTimes
 }
 
 // Complete the current stage of a customer's package (called by the MedicalProvider)

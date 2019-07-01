@@ -45,7 +45,18 @@
     "unverifiedContingencyName": "-1",
     "medicalRecords": ["BASE64", "BASE64"],
     "startDate": "TIMESTAMP",
-    "currentStage": "Heart Procedure 1"
+    "currentStage": "Heart Procedure 1",
+    "fundamentalProcedureNames": ["Heart Procedure 1", "Heart Procedure 2", "Heart Procedure 3"],
+    "fundamentalProcedureCosts": [5000, 75000, 5000],
+    "fundamentalProcedureTimes": ["1", "5", "10"],
+    "contingencyNames": ["Contingency 1", "Contingency 2", "Contingency 3"],
+    "contingencyDescriptions": ["Contingency Description 1", "Contingency Description 2", "Contingency Description 3"],
+    "contingencyCosts": [200, 600, 1000],
+    "contingencyTimes": ["2", "6", "10"],
+    "unvalidatedContingencyNames": [],
+    "unvalidatedContingencyDescriptions": [],
+    "unvalidatedContingencyCosts": [],
+    "unvalidatedContingencyTimes": []
 }
 
 {
