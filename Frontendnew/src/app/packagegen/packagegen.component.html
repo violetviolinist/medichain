@@ -1,0 +1,105 @@
+<!--STEPPER-->
+
+<br/><br/><br/><br/><br/><br/>
+<mat-horizontal-stepper linear #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Basic Details</ng-template>
+      <mat-grid-list cols="2" class="my-grid-list">
+          <mat-grid-tile class="my-grid-tile">
+            <mat-card-content>
+              <mat-form-field>
+                  <input matInput placeholder="Surgery Name" formControlName="firstCtrl1" required>
+                  <br/>
+                </mat-form-field>
+                <br/>
+                <mat-form-field>
+                  <input matInput placeholder=" Category" formControlName="firstCtrl2" required>
+                </mat-form-field>
+                <br/>
+                <mat-form-field>
+                    <textarea matInput formControlName="firstCtrl3" placeholder="Textarea"></textarea>
+                </mat-form-field>
+                <br/>
+                  <input placeholder="Image" formControlName="firstCtrl4" type="file" name="file" accept="image/*" (change)="getFiles($event)" ><br/>  
+              </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile class="my-grid-tile">
+              <img [src]="'data:image/jpg;base64,'+filestring" style="height:300px;width:300px" />
+          </mat-grid-tile>
+      </mat-grid-list>           
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" [optional]="isOptional">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Procedure Details</ng-template>
+      <br/>
+      <mat-label>Add Fundamental Procedures</mat-label><br/>
+      <mat-icon (click)="addProcedures()">add_circle</mat-icon>
+      <div class="example-container mat-elevation-z8" style="width:80%;margin-left:10%;text-align:center;">
+      <mat-grid-list cols="3" >
+          <mat-grid-tile class="my-grid-tile">
+            <mat-card-content style="width:100%" id="ProcNameList">
+              <h6>Procedure Names</h6>
+            </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile  style="padding-top:200px;">
+              <mat-card-content style="width:100%" id="ProcCostList">
+                  <h6>Procedure Costs</h6>
+              </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile  style="padding-top:200px;">
+              <mat-card-content style="width:100%" id="ProcTimeList">
+                  <h6>Procedure Time</h6>
+              </mat-card-content>
+            </mat-grid-tile>
+      </mat-grid-list>
+      </div>
+
+      <br/>
+  
+      <mat-label>Add Contigencies</mat-label><br/>
+      <mat-icon (click)="addContigencies()">add_circle</mat-icon>
+      <div class="example-container mat-elevation-z8" style="width:80%;margin-left:10%;text-align:center;">
+      <mat-grid-list cols="4" >
+          <mat-grid-tile  style="padding-top:200px;">
+            <mat-card-content style="width:100%" id="ContNameList">
+              <h6>Contingency Names</h6>
+            </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile  style="padding-top:200px;">
+              <mat-card-content style="width:100%" id="ContDescList">
+                <h6>Contingency Description</h6>
+              </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile  style="padding-top:200px;">
+              <mat-card-content style="width:100%" id="ContCostList">
+                  <h6>Contingency Costs</h6>
+              </mat-card-content>
+          </mat-grid-tile>
+          <mat-grid-tile  style="padding-top:200px;">
+              <mat-card-content style="width:100%" id="ContTimeList">
+                  <h6>Contingency Time</h6>
+              </mat-card-content>
+            </mat-grid-tile>
+      </mat-grid-list>
+      </div>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext (click)="submitPackage()">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
